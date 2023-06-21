@@ -7,7 +7,28 @@ public class EnemyModel : MonoBehaviour
     public float range;
     public float angle = 120f;
     public LayerMask layerMask;
+    public float speed;
+    public float chaseSpeed;
 
+    private void Awake()
+    {
+        
+    }
+    public void Chase(Vector3 playerPosition, Transform player)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, playerPosition
+            , chaseSpeed * Time.deltaTime);
+        transform.LookAt(player);
+    }
+    public void Patrol(Vector3 currentWaypointPosition)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, currentWaypointPosition, speed * Time.deltaTime);
+    }
+    public void LookDirPatrol(Transform currentWaypointTransform)
+    {
+        transform.LookAt(currentWaypointTransform);
+    }
+    
     public bool IsInRange(Transform target)
     {
         // lo mismo que hacer b-a
