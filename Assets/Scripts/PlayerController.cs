@@ -31,6 +31,6 @@ public class PlayerController : MonoBehaviour
     }
     private void Move()
     {
-        rb.AddForce(new Vector3(xInput, 0f, zInput) * moveSpeed);
+        rb.AddForce(new Vector3(xInput, 0f, zInput) * moveSpeed);        
     }
 }
