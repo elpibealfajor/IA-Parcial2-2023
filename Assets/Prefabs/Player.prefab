@@ -129,5 +129,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   moveSpeed: 10
-  decoy: {fileID: 0}
+  decoy: {fileID: 2811096624698704726, guid: 1ffb3a9933c6c7a48837c5907a56ef94, type: 3}
   decoyCooldownTime: 3

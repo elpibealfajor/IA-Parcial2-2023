@@ -10,9 +10,22 @@ public class EnemyModel : MonoBehaviour
     public float speed;
     public float chaseSpeed;
 
+    //patrolling
+    public Transform[] wPoints;
+    public int current;
+
+    //Vision of the player
+    public Transform target;
+
+    //decoy
+    public Transform decoy;
     private void Awake()
     {
-        
+
+    }
+    void Start()
+    {
+        current = 0;
     }
     public void Chase(Vector3 playerPosition, Transform player)
     {
@@ -77,13 +90,30 @@ public class EnemyModel : MonoBehaviour
         }
         return true;
     }
+    public bool GetIfTargetIsViewed()
+    {
+        if (IsInRange(target) && IsInAngle(target) && IsInVision(target))
+        {
+            //model.Chase(target.position, target);
+            return true;
+            //print("dentro del rango de vision");
+        }
+        else
+        {
+            return false;
+        }
+        //else if (decoy != null && model.IsInRange(decoy) && model.IsInAngle(decoy) && model.IsInVision(decoy))
+        //{
+        //    print("decoy en rango de vision");
+        //}
+        //else
+        //{
+        //    print("fuera de vision");
+        //}
+    }
     public void SetEyesVisuals()
     {
         //efectos visuales al estar en vision
-    }
-    void Start()
-    {
-        
     }
     void Update()
     {

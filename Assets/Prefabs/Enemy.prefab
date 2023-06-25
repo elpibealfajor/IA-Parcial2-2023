@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3268882322891302351}
   - component: {fileID: 7727937640076809512}
   - component: {fileID: 4673542931342700457}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,7 +113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e477be9683e501c48bfd9cc03e7e8c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!114 &4673542931342700457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +126,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 0
+  angle: 120
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  speed: 0
+  chaseSpeed: 0
+  wPoints: []
+  current: 0
+  target: {fileID: 0}
+  decoy: {fileID: 0}
 --- !u!1 &5400801764419453607
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +148,7 @@ GameObject:
   - component: {fileID: 3601169469765194607}
   - component: {fileID: 7375179623280782143}
   - component: {fileID: 4520112357192113134}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}

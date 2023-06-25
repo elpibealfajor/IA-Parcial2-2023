@@ -16,6 +16,17 @@ public class EnemyPatrolState<T> : EnemyStateBase<T>
     public override void Execute()
     {
         base.Execute();
+        if (model.transform.position != model.wPoints[model.current].position)
+        {
+            model.Patrol(model.wPoints[model.current].position);
+            model.LookDirPatrol(model.wPoints[model.current]);
+            Debug.Log("patrullando");
+        }
+        else
+        {
+            model.current = (model.current + 1) % model.wPoints.Length;
+        }
+
     }
     public override void Sleep()
     {

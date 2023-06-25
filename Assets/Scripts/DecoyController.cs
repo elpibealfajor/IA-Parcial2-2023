@@ -18,10 +18,11 @@ public class DecoyController : MonoBehaviour
         {
             if (col.gameObject.tag == "Enemy")
             {
-                var enemyControler = col.GetComponent<EnemyController>();
-                enemyControler.decoy = this.transform;               
+                var enemyModel = col.GetComponent<EnemyModel>();
+                enemyModel.decoy = this.transform;               
                 print("detecte un enemigo");
             }
         }
     }
+    
 }

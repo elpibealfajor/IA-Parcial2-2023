@@ -12,10 +12,13 @@ public class EnemyChaseState<T> : EnemyStateBase<T>
     public override void Awake()
     {
         base.Awake();
+
     }
     public override void Execute()
     {
         base.Execute();
+        model.Chase(model.target.position, model.target);
+        Debug.Log("Persiguiendo");
     }
     public override void Sleep()
     {
