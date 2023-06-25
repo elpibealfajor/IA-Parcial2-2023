@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     //Vision of the player
     public Transform target;
     EnemyModel model;
+    public Transform decoy;
     private void Awake()
     {
         model = GetComponent<EnemyModel>();
@@ -21,22 +22,22 @@ public class EnemyController : MonoBehaviour
     }
     void InitializedFSM()
     {
-        //fsm = new FSM<EnemyStates>();
-        //var chase = new EnemyChaseState<EnemyStates>(EnemyStates.Patroling);
-        //var patrol = new EnemyPatrolState<EnemyStates>(EnemyStates.chase);
+        fsm = new FSM<EnemyStates>();
+        var chase = new EnemyChaseState<EnemyStates>(EnemyStates.Patroling);
+        var patrol = new EnemyPatrolState<EnemyStates>(EnemyStates.chase);
 
-        //states.Add(chase);
-        //states.Add(patrol);
+        states.Add(chase);
+        states.Add(patrol);
 
-        //chase.AddTransition(EnemyStates.Patroling, patrol);
-        //patrol.AddTransition(EnemyStates.chase, chase);
+        chase.AddTransition(EnemyStates.Patroling, patrol);
+        patrol.AddTransition(EnemyStates.chase, chase);
 
-        //for (int i = 0; i < states.Count; i++)
-        //{
-        //    states[i].InitializedState(model);
-        //}
+        for (int i = 0; i < states.Count; i++)
+        {
+            states[i].InitializedState(model);
+        }
 
-        //fsm.SetInit(patrol);
+        fsm.SetInit(patrol);
     }
 
     void Start()
@@ -51,8 +52,8 @@ public class EnemyController : MonoBehaviour
         {
             //transform.position = Vector3.MoveTowards(transform.position, wPoints[current].position, speed * Time.deltaTime);
             //transform.LookAt(wPoints[current]);
-            model.Patrol(wPoints[current].position);
-            model.LookDirPatrol(wPoints[current]);
+            //model.Patrol(wPoints[current].position);
+            //model.LookDirPatrol(wPoints[current]);
         }
         else
         {
@@ -62,12 +63,18 @@ public class EnemyController : MonoBehaviour
 
         if (model.IsInRange(target) && model.IsInAngle(target) && model.IsInVision(target))
         {
-            //model.Chase(target.position, target);
+            model.Chase(target.position, target);
             print("dentro del rango de vision");
+
+        }
+        else if (decoy != null && model.IsInRange(decoy) && model.IsInAngle(decoy) && model.IsInVision(decoy))
+        {
+            print("decoy en rango de vision");
         }
         else
         {
-            print("fuera de la vision");
+            print("fuera de vision");
         }
+
     }
 }

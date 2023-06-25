@@ -1349,6 +1349,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4851312537683910901, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851312537683910901, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400801764419453607, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727937640076809512, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: decoy
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7727937640076809512, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
       propertyPath: speed
       value: 5
@@ -1438,6 +1454,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8213275055177244716, guid: f9922c2a505e3e64dbbccb4ec2c1ec65, type: 3}
+      propertyPath: decoy
+      value: 
+      objectReference: {fileID: 2811096624698704726, guid: 1ffb3a9933c6c7a48837c5907a56ef94, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9922c2a505e3e64dbbccb4ec2c1ec65, type: 3}
 --- !u!1001 &5875987731329331783

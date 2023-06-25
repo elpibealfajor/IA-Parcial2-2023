@@ -9,4 +9,16 @@ public class EnemyPatrolState<T> : EnemyStateBase<T>
     {
         this.input = input;
     }
+    public override void Awake()
+    {
+        base.Awake();
+    }
+    public override void Execute()
+    {
+        base.Execute();
+    }
+    public override void Sleep()
+    {
+        base.Sleep();
+    }
 }

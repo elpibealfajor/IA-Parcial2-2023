@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     private float xInput;
     private float zInput;
 
+    public GameObject decoy;
+    public float decoyCooldownTime;
+    private float decoyCooldown = 0f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -18,6 +22,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         ProcessInputs();
+        DecoySpawn();
     }
 
     private void FixedUpdate()
@@ -32,5 +37,18 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         rb.AddForce(new Vector3(xInput, 0f, zInput) * moveSpeed);        
+    }
+    private void DecoySpawn()
+    {
+        decoyCooldown = decoyCooldown - Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.R) && decoyCooldown <= 0)
+        {
+            Instantiate(decoy,transform.position,transform.rotation);
+            decoyCooldown = decoyCooldownTime;
+        }
+        else
+        {
+            return;
+        }
     }
 }
