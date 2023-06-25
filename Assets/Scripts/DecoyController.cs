@@ -20,7 +20,6 @@ public class DecoyController : MonoBehaviour
             {
                 var enemyModel = col.GetComponent<EnemyModel>();
                 enemyModel.decoy = this.transform;               
-                print("detecte un enemigo");
             }
         }
     }

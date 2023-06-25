@@ -33,11 +33,6 @@ public class EnemyModel : MonoBehaviour
             , chaseSpeed * Time.deltaTime);
         transform.LookAt(player);
     }
-    public void DecoyDistracted()
-    {
-        // wait a few seconds and then again to patrol
-        Invoke(nameof(Patrol),5f); 
-    }
     public void Patrol(Vector3 currentWaypointPosition)
     {
         transform.position = Vector3.MoveTowards(transform.position, currentWaypointPosition, speed * Time.deltaTime);
@@ -94,22 +89,24 @@ public class EnemyModel : MonoBehaviour
     {
         if (IsInRange(target) && IsInAngle(target) && IsInVision(target))
         {
-            //model.Chase(target.position, target);
             return true;
-            //print("dentro del rango de vision");
         }
         else
         {
             return false;
         }
-        //else if (decoy != null && model.IsInRange(decoy) && model.IsInAngle(decoy) && model.IsInVision(decoy))
-        //{
-        //    print("decoy en rango de vision");
-        //}
-        //else
-        //{
-        //    print("fuera de vision");
-        //}
+
+    }
+    public bool GetIfDecoyIsViewed()
+    {
+        if (decoy != null && IsInRange(decoy) && IsInAngle(decoy) && IsInVision(decoy))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public void SetEyesVisuals()
     {

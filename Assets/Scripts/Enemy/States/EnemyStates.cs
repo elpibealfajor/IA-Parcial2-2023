@@ -5,5 +5,6 @@ using UnityEngine;
 public enum EnemyStates 
 {
     Patroling,
-    chase
+    chase,
+    Distracted
 }

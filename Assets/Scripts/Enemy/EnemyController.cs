@@ -5,17 +5,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     FSM<EnemyStates> fsm;
-    //List<EnemyStateBase<EnemyStates>> states;
     ITreeNode root;
-    ////patrolling
-    //public Transform[] wPoints;
-    //int current;
-    //public float speed;
-
-    ////Vision of the player
-    //public Transform target;
     EnemyModel model;
-    //public Transform decoy;
     private void Awake()
     {
         model = GetComponent<EnemyModel>();
@@ -26,21 +17,27 @@ public class EnemyController : MonoBehaviour
     {
         var list = new List<EnemyStateBase<EnemyStates>>();
         fsm = new FSM<EnemyStates>();
+
         var chase = new EnemyChaseState<EnemyStates>(EnemyStates.Patroling);
         var patrol = new EnemyPatrolState<EnemyStates>(EnemyStates.chase);
+        var distracted = new EnemyDistractedState<EnemyStates>(EnemyStates.Distracted);
+        
 
         list.Add(chase);
         list.Add(patrol);
+        list.Add(distracted);
 
         chase.AddTransition(EnemyStates.Patroling, patrol);
+        chase.AddTransition(EnemyStates.Distracted, distracted);
         patrol.AddTransition(EnemyStates.chase, chase);
+        patrol.AddTransition(EnemyStates.Distracted, distracted);
+        distracted.AddTransition(EnemyStates.Patroling, patrol);
+        distracted.AddTransition(EnemyStates.chase, chase);
 
         for (int i = 0; i < list.Count; i++)
         {
             list[i].InitializedState(model,fsm);
         }
-
-        patrol.AddTransition(EnemyStates.chase,chase);
 
         fsm.SetInit(patrol);
     }
@@ -49,16 +46,21 @@ public class EnemyController : MonoBehaviour
         //actions
         var patrol = new TreeAction(ActionPatrol);
         var chase = new TreeAction(ActionChase);
+        var distracted = new TreeAction(ActionDistracted);
 
         //questions
+        var isTheDecoy = new TreeQuestion(IsDecoy,distracted,patrol);
         var isThePlayer = new TreeQuestion(IsThePlayer,chase,patrol);
-
 
         root = isThePlayer;
     }
     bool IsThePlayer()
     {
         return model.GetIfTargetIsViewed();
+    }
+    bool IsDecoy()
+    {
+        return model.GetIfDecoyIsViewed();
     }
     void ActionPatrol()
     {
@@ -68,41 +70,13 @@ public class EnemyController : MonoBehaviour
     {
         fsm.Transitions(EnemyStates.chase);
     }
-    void Start()
+    void ActionDistracted()
     {
-        //current = 0;
+        fsm.Transitions(EnemyStates.Distracted);
     }
     void Update()
     {
         fsm.OnUpdate();
         root.Execute();
-        //if (transform.position != wPoints[current].position)
-        //{
-        //    //transform.position = Vector3.MoveTowards(transform.position, wPoints[current].position, speed * Time.deltaTime);
-        //    //transform.LookAt(wPoints[current]);
-        //    //model.Patrol(wPoints[current].position);
-        //    //model.LookDirPatrol(wPoints[current]);
-        //}
-        //else
-        //{
-        //    current = (current + 1) % wPoints.Length;
-        //}
-
-
-        //if (model.IsInRange(target) && model.IsInAngle(target) && model.IsInVision(target))
-        //{
-        //    model.Chase(target.position, target);
-        //    print("dentro del rango de vision");
-
-        //}
-        //else if (decoy != null && model.IsInRange(decoy) && model.IsInAngle(decoy) && model.IsInVision(decoy))
-        //{
-        //    print("decoy en rango de vision");
-        //}
-        //else
-        //{
-        //    print("fuera de vision");
-        //}
-
     }
 }

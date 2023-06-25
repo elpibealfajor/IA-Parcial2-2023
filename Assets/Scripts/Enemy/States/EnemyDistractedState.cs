@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDistractedState : MonoBehaviour
+public class EnemyDistractedState<T> : EnemyStateBase<T> 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    T input;
 
-    // Update is called once per frame
-    void Update()
+    public EnemyDistractedState(T input)
     {
-        
+        this.input = input;
+    }
+    public override void Awake()
+    {
+        base.Awake();
+    }
+    public override void Execute()
+    {
+        base.Execute();
+    }
+    public override void Sleep()
+    {
+        base.Sleep();
+
     }
 }

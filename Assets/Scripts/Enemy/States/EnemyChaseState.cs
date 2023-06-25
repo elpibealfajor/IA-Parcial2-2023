@@ -12,7 +12,6 @@ public class EnemyChaseState<T> : EnemyStateBase<T>
     public override void Awake()
     {
         base.Awake();
-
     }
     public override void Execute()
     {

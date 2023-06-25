@@ -125,13 +125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 701708145edfe53409b49bbd848a7723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 0
-  angle: 120
+  range: 8.69
+  angle: 71.4
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
-  speed: 0
-  chaseSpeed: 0
+    m_Bits: 1024
+  speed: 10
+  chaseSpeed: 4
   wPoints: []
   current: 0
   target: {fileID: 0}
