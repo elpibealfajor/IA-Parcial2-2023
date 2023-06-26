@@ -1331,6 +1331,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4673542931342700457, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: isRandomPatrollingOn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4673542931342700457, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
       propertyPath: projectileSpawnPoint
       value: 
       objectReference: {fileID: 521312815}

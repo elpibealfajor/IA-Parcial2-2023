@@ -16,14 +16,29 @@ public class EnemyPatrolState<T> : EnemyStateBase<T>
     public override void Execute()
     {
         base.Execute();
-        if (model.transform.position != model.wPoints[model.current].position)
+        if (model.isRandomPatrollingOn == false)
         {
-            model.Patrol(model.wPoints[model.current].position);
-            model.LookDirPatrol(model.wPoints[model.current]);
+            if (model.transform.position != model.wPoints[model.current].position)
+            {
+                model.Patrol(model.wPoints[model.current].position);
+                model.LookDirPatrol(model.wPoints[model.current]);
+            }
+            else
+            {
+                model.current = (model.current + 1) % model.wPoints.Length;
+            }
         }
-        else
+        else if (model.isRandomPatrollingOn == true)
         {
-            model.current = (model.current + 1) % model.wPoints.Length;
+            if (model.transform.position != model.currentWaypointTransform.position)
+            {
+                model.RandomPatrol(model.currentWaypointTransform);
+                model.LookDirPatrol(model.currentWaypointTransform);
+            }
+            else
+            {
+                model.currentWaypointTransform = model.roulette.Run<Transform>(model.dic);
+            }
         }
 
     }

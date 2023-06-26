@@ -10,9 +10,15 @@ public class PlayerController : MonoBehaviour
     private float xInput;
     private float zInput;
 
+    //decoy
     public GameObject decoy;
     public float decoyCooldownTime;
     private float decoyCooldown = 0f;
+
+    //RemoteControlBall
+    public GameObject remoteBall;
+    public float remoteBallCooldownTime;
+    private float remoteBallCooldown = 0f;
 
     private void Awake()
     {
@@ -23,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         ProcessInputs();
         DecoySpawn();
+        RemoteControlSpawn();
     }
 
     private void FixedUpdate()
@@ -45,6 +52,19 @@ public class PlayerController : MonoBehaviour
         {
             Instantiate(decoy,transform.position,transform.rotation);
             decoyCooldown = decoyCooldownTime;
+        }
+        else
+        {
+            return;
+        }
+    }
+    private void RemoteControlSpawn()
+    {
+        remoteBallCooldown = remoteBallCooldown - Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.F) && remoteBallCooldown <= 0)
+        {
+            Instantiate(remoteBall, transform.position, transform.rotation);
+            remoteBallCooldown = remoteBallCooldownTime;
         }
         else
         {

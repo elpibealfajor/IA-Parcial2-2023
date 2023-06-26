@@ -17,6 +17,12 @@ public class EnemyModel : MonoBehaviour
     public Transform[] wPoints;
     public int current;
 
+    //RandomPatrolling
+    public bool isRandomPatrollingOn = false;
+    public Transform currentWaypointTransform;
+    public Dictionary<Transform, int> dic;
+    public Roulette roulette;
+
     //Vision of the player
     public Transform target;
 
@@ -33,11 +39,17 @@ public class EnemyModel : MonoBehaviour
     public float shootTimer = 0f;
     private void Awake()
     {
-
+        roulette = new Roulette();
+        dic = new Dictionary<Transform, int>();
+        foreach (Transform wpointTransform in wPoints)
+        {
+            dic.Add(wpointTransform, 25);
+        }
     }
     void Start()
     {
         current = 0;
+        currentWaypointTransform = roulette.Run<Transform>(dic);
     }
     public void Distracted()
     {
@@ -67,6 +79,10 @@ public class EnemyModel : MonoBehaviour
     public void Patrol(Vector3 currentWaypointPosition)
     {
         transform.position = Vector3.MoveTowards(transform.position, currentWaypointPosition, speed * Time.deltaTime);
+    }
+    public void RandomPatrol(Transform waypointTransform)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, waypointTransform.position, speed * Time.deltaTime);
     }
     public void LookDirPatrol(Transform currentWaypointTransform)
     {
