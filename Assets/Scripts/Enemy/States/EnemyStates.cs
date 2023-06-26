@@ -9,5 +9,6 @@ public enum EnemyStates
     Distracted,
     Shoot,
     EnemyAtackDecoy,
-    EnemyFlee
+    EnemyFlee,
+    idle
 }

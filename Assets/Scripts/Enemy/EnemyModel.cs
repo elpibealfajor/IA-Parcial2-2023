@@ -16,6 +16,9 @@ public class EnemyModel : MonoBehaviour
     //patrolling
     public Transform[] wPoints;
     public int current = 0;
+    public int patrollsCompleted =0;
+    public int patrollsToComplete = 8;
+    public float amountOfIdleTime = 4f;
 
     //RandomPatrolling
     public bool isRandomPatrollingOn = false;
@@ -88,6 +91,23 @@ public class EnemyModel : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, currentWaypointPosition, speed * Time.deltaTime);
     }
+    public bool PatrollCompleted()
+    {
+        if (patrollsCompleted == patrollsToComplete)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    IEnumerator resetPatrollsCompleted()
+    {
+        yield return new WaitForSeconds(amountOfIdleTime);
+        patrollsCompleted = 0;
+    }
+
     public void RandomPatrol(Transform waypointTransform)
     {
         transform.position = Vector3.MoveTowards(transform.position, waypointTransform.position, speed * Time.deltaTime);

@@ -16,7 +16,6 @@ public class EnemyPatrolState<T> : EnemyStateBase<T>
     public override void Execute()
     {
         base.Execute();
-        Debug.Log("Patrolling");
         if (model.isRandomPatrollingOn == false)
         {
             if (model.transform.position != model.wPoints[model.current].position)
@@ -27,6 +26,7 @@ public class EnemyPatrolState<T> : EnemyStateBase<T>
             else
             {
                 model.current = (model.current + 1) % model.wPoints.Length;
+                model.patrollsCompleted += 1;
             }
         }
         else if (model.isRandomPatrollingOn == true)

@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDistractedState<T> : EnemyStateBase<T> 
+public class EnemyIdleState<T> : EnemyStateBase<T>
 {
     T input;
 
-    public EnemyDistractedState(T input)
+    public EnemyIdleState(T input)
     {
         this.input = input;
     }
     public override void Awake()
     {
         base.Awake();
+        model.StartCoroutine("resetPatrollsCompleted");
     }
     public override void Execute()
     {
@@ -23,4 +24,5 @@ public class EnemyDistractedState<T> : EnemyStateBase<T>
     {
         base.Sleep();
     }
+
 }

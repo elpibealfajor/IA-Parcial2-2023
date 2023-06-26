@@ -18,7 +18,6 @@ public class EnemyAttackDecoyState<T> : EnemyStateBase<T>
     public override void Execute()
     {
         base.Execute();
-        Debug.Log("estado disparar decoy");
         model.shootTimer += Time.deltaTime;
         if (model.shootTimer >= model.shootInterval)
         {
