@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bullet : MonoBehaviour
 {
@@ -8,12 +9,11 @@ public class Bullet : MonoBehaviour
     {
         if (collision.transform.gameObject.name == "Player")
         {
-            //SceneManager.LoadScene("Example_01");
+            //SceneManager.LoadScene("SampleScene");
         }
         else if (collision.transform.gameObject.tag == "Decoy")
         {
             Destroy(collision.gameObject);
-            Debug.Log("Colisione con el decoy");
         }
     }
 }

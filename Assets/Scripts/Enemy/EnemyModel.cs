@@ -15,7 +15,7 @@ public class EnemyModel : MonoBehaviour
 
     //patrolling
     public Transform[] wPoints;
-    public int current;
+    public int current = 0;
 
     //RandomPatrolling
     public bool isRandomPatrollingOn = false;
@@ -57,7 +57,6 @@ public class EnemyModel : MonoBehaviour
     }
     void Start()
     {
-        current = 0;
         currentWaypointTransform = roulette.Run<Transform>(dic);
     }
     public void Distracted()
