@@ -13,8 +13,15 @@ public class Seek : Isteering
         this.target = target;
         this.origin = origin;   
     }
-    public Vector3 GetDir()
+    public virtual Vector3 GetDir()
     {
-        return (target.position - origin.position).normalized; //b-a
+        if (target != null)
+        {
+            return (target.position - origin.position).normalized; //b-a
+        }
+        else
+        {
+            return Vector3.zero;
+        }
     }
 }

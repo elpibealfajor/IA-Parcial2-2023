@@ -129,9 +129,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2311828436210501352, guid: f9922c2a505e3e64dbbccb4ec2c1ec65, type: 3}
+  mask:
+    serializedVersion: 2
+    m_Bits: 1024
+  maxObs: 5
+  angle: 180
+  radius: 3
+  multiplier: 0.9
   lifeTime: 7
   range: 100
-  entityToIgnore: {fileID: 2311828436210501356, guid: f9922c2a505e3e64dbbccb4ec2c1ec65, type: 3}
 --- !u!114 &-7208295693196206014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,4 +150,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da13934f5a6951448bcc6b3081b8cc43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 3

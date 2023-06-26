@@ -31,27 +31,38 @@ public class EnemyController : MonoBehaviour
         var distracted = new EnemyDistractedState<EnemyStates>(EnemyStates.Distracted);
         var shoot = new EnemyAttackState<EnemyStates>(EnemyStates.Shoot);
         var atackDecoy = new EnemyAttackDecoyState<EnemyStates>(EnemyStates.EnemyAtackDecoy);
+        var flee = new EnemyFleeState<EnemyStates>(EnemyStates.EnemyFlee);
 
         list.Add(chase);
         list.Add(patrol);
         list.Add(distracted);
         list.Add(shoot);
         list.Add(atackDecoy);
+        list.Add(flee);
 
         chase.AddTransition(EnemyStates.Patroling, patrol);
         chase.AddTransition(EnemyStates.Distracted, distracted);
         chase.AddTransition(EnemyStates.Shoot, shoot);
+        chase.AddTransition(EnemyStates.EnemyFlee, flee);
         patrol.AddTransition(EnemyStates.chase, chase);
         patrol.AddTransition(EnemyStates.Distracted, distracted);
         patrol.AddTransition(EnemyStates.EnemyAtackDecoy, atackDecoy);
+        patrol.AddTransition(EnemyStates.EnemyFlee, flee);
         distracted.AddTransition(EnemyStates.Patroling, patrol); //como distracted no tiene transicion a attack decoy, arregle que se sobreescriban
-        distracted.AddTransition(EnemyStates.chase, chase);
+        distracted.AddTransition(EnemyStates.chase, chase);  //como distracted no tiene transicion a flee, se puede combear decoy + remote
         shoot.AddTransition(EnemyStates.Patroling, patrol);
         shoot.AddTransition(EnemyStates.chase, chase);
         shoot.AddTransition(EnemyStates.Distracted, distracted);
+        shoot.AddTransition(EnemyStates.EnemyFlee, flee);
         atackDecoy.AddTransition(EnemyStates.Patroling, patrol);
         atackDecoy.AddTransition(EnemyStates.chase, chase);
         atackDecoy.AddTransition(EnemyStates.Shoot, shoot);
+        atackDecoy.AddTransition(EnemyStates.EnemyFlee, flee);
+        flee.AddTransition(EnemyStates.Patroling, patrol);
+        flee.AddTransition(EnemyStates.chase, chase);
+        flee.AddTransition(EnemyStates.Distracted, distracted);
+        flee.AddTransition(EnemyStates.EnemyAtackDecoy, atackDecoy);
+        flee.AddTransition(EnemyStates.Shoot, shoot);
 
         for (int i = 0; i < list.Count; i++)
         {
@@ -70,6 +81,7 @@ public class EnemyController : MonoBehaviour
         var chase = new TreeAction(ActionChase);
         var distracted = new TreeAction(ActionDistracted);
         var shoot = new TreeAction(ActionShoot);
+        var flee = new TreeAction(ActionFlee);
         //var shootDecoy = new TreeAction(ActionAttackDecoy);
 
         //roulete wheel dic
@@ -82,8 +94,9 @@ public class EnemyController : MonoBehaviour
         var isTheDecoy = new TreeQuestion(IsDecoy, distracted, patrol);
         var isThePlayerInRange = new TreeQuestion(IsInShootRange, shoot, chase);
         var isThePlayer = new TreeQuestion(IsThePlayer, isThePlayerInRange, isTheDecoy);
+        var isRemoteBallInAngle = new TreeQuestion(IsRemoteBallInAngle,flee,isThePlayer);
 
-        root = isThePlayer;
+        root = isRemoteBallInAngle;
     }
     bool IsThePlayer()
     {
@@ -97,6 +110,11 @@ public class EnemyController : MonoBehaviour
     {
         return model.IsInAttackRange();
     }
+    bool IsRemoteBallInAngle()
+    {
+        return model.GetIfRemoteBallIsInAngle();
+    }
+
     void ActionPatrol()
     {
         fsm.Transitions(EnemyStates.Patroling);
@@ -113,6 +131,10 @@ public class EnemyController : MonoBehaviour
     void ActionShoot()
     {
         fsm.Transitions(EnemyStates.Shoot);
+    }
+    void ActionFlee()
+    {
+        fsm.Transitions(EnemyStates.EnemyFlee);
     }
     //void ActionAttackDecoy()
     //{

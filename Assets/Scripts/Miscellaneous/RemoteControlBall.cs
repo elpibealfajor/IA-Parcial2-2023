@@ -7,17 +7,24 @@ public class RemoteControlBall : MonoBehaviour
     public Transform target;
     Isteering steering;
 
-    RemoteBallModel remoteBall;
+    Isteering obsAvoidance;
+    public LayerMask mask;
+    public int maxObs;
+    public float angle;
+    public float radius;
+    public float multiplier;
+
+    EntityModel remoteBall;
     public float lifeTime;
     public float range;
 
 
     private void Awake()
     {
-        remoteBall = GetComponent<RemoteBallModel>();
+        remoteBall = GetComponent<EntityModel>();
         CheckCollision();
-        Destroy(gameObject, lifeTime);
-        InitializeSteering();       
+        Destroy(gameObject, lifeTime); 
+        InitializeSteering();
     }
     private void Start()
     {
@@ -31,19 +38,31 @@ public class RemoteControlBall : MonoBehaviour
             if (col.gameObject.tag == "Enemy")
             {
                 var enemyModel = col.GetComponent<EnemyModel>();
-                target = enemyModel.transform;
+                target = enemyModel.transform;               
+                enemyModel.remoteBall = this.transform;
             }
         }
     }
     void InitializeSteering()
     {
         var seek = new Seek(transform, target.transform);
+        obsAvoidance = new ObstacleAvoidance(transform, mask, maxObs, angle, radius);
         steering = seek;
     }
     private void Update()
     {
-        Vector3 dir = steering.GetDir();
+        Vector3 dirAvoidance = obsAvoidance.GetDir();
+        Vector3 dir = (steering.GetDir() + dirAvoidance * multiplier).normalized;
+        //Vector3 dir = steering.GetDir();
         remoteBall.Move(dir);
-        remoteBall.LookDir(dir);
+        //remoteBall.LookDir(dir);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.gameObject.tag == "Enemy")
+        {
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
+        }
     }
 }

@@ -37,8 +37,17 @@ public class EnemyModel : MonoBehaviour
     public float projectileSpeed = 10f;
     public float shootInterval = 1f;
     public float shootTimer = 0f;
+
+    //flee
+    public Transform remoteBall;
+    public EntityModel enemyEntity;
+    public Rigidbody rb;
+    Isteering steering;
+    public float RemoteBallDetectionRange = 10f;
     private void Awake()
     {
+        enemyEntity = GetComponent<EntityModel>();
+        rb = GetComponent<Rigidbody>();
         roulette = new Roulette();
         dic = new Dictionary<Transform, int>();
         foreach (Transform wpointTransform in wPoints)
@@ -142,7 +151,6 @@ public class EnemyModel : MonoBehaviour
         {
             return false;
         }
-
     }
     public bool IsInAttackRange()
     {
@@ -167,6 +175,42 @@ public class EnemyModel : MonoBehaviour
             return false;
         }
     }
+    //public bool GetIfRemoteBallIsInAngle()
+    //{
+    //    if (remoteBall!=null && IsInAngle(remoteBall))
+    //    {
+    //        Debug.Log("verdadero");
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("falso");
+    //        return false;
+    //    }
+    //}
+    public bool GetIfRemoteBallIsInAngle()
+    {
+        if (remoteBall != null)
+        {
+            float distance = Vector3.Distance(remoteBall.position, transform.position);
+            return distance <= RemoteBallDetectionRange;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public void Flee()
+    {
+        Vector3 dir = steering.GetDir();
+        enemyEntity.Move(dir);
+        enemyEntity.LookDir(dir);
+    }
+    public void InitializeSteering()
+    {
+        var flee = new Flee(transform, remoteBall.transform);
+        steering = flee;
+    }
     public void SetEyesVisuals()
     {
         //efectos visuales al estar en vision
@@ -183,5 +227,8 @@ public class EnemyModel : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, Quaternion.Euler(0, angle / 2, 0) * transform.forward * range);
         Gizmos.DrawRay(transform.position, Quaternion.Euler(0,-angle / 2, 0) * transform.forward * range);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, RemoteBallDetectionRange);
     }
 }

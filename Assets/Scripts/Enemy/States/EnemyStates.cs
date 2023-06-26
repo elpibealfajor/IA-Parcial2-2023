@@ -8,5 +8,6 @@ public enum EnemyStates
     chase,
     Distracted,
     Shoot,
-    EnemyAtackDecoy
+    EnemyAtackDecoy,
+    EnemyFlee
 }
