@@ -20,7 +20,6 @@ public class EnemyPatrolState<T> : EnemyStateBase<T>
         {
             model.Patrol(model.wPoints[model.current].position);
             model.LookDirPatrol(model.wPoints[model.current]);
-            Debug.Log("patrullando");
         }
         else
         {

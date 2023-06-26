@@ -290,6 +290,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &521312815 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6272876359483983737, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+  m_PrefabInstance: {fileID: 2213750738497121610}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &630883808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1281,6 +1286,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3268882322891302351, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268882322891302351, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520112357192113134, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4673542931342700457, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
       propertyPath: angle
       value: 71.4
@@ -1302,6 +1319,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4673542931342700457, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: targetToShoot
+      value: 
+      objectReference: {fileID: 1305125016}
+    - target: {fileID: 4673542931342700457, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
       propertyPath: layerMask.m_Bits
       value: 1024
       objectReference: {fileID: 0}
@@ -1309,6 +1330,10 @@ PrefabInstance:
       propertyPath: wPoints.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4673542931342700457, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: projectileSpawnPoint
+      value: 
+      objectReference: {fileID: 521312815}
     - target: {fileID: 4673542931342700457, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
       propertyPath: wPoints.Array.data[0]
       value: 

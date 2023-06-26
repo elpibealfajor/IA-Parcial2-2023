@@ -6,5 +6,6 @@ public enum EnemyStates
 {
     Patroling,
     chase,
-    Distracted
+    Distracted,
+    Shoot
 }

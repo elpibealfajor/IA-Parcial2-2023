@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class EnemyModel : MonoBehaviour
 {
+    //Line Of Sight
     public float range;
     public float angle = 120f;
     public LayerMask layerMask;
+
+    //chase
     public float speed;
     public float chaseSpeed;
 
@@ -19,6 +22,14 @@ public class EnemyModel : MonoBehaviour
 
     //decoy
     public Transform decoy;
+
+    //Shoot
+    public Transform targetToShoot;
+    public Transform projectileSpawnPoint;
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 10f;
+    public float shootInterval = 1f;
+    public float shootTimer = 0f;
     private void Awake()
     {
 
@@ -26,6 +37,20 @@ public class EnemyModel : MonoBehaviour
     void Start()
     {
         current = 0;
+    }
+    public void Shoot()
+    {
+        var projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position + transform.forward, Quaternion.identity) as GameObject;
+        projectile.GetComponent<Rigidbody>().velocity = projectileSpawnPoint.forward * projectileSpeed;
+        Destroy(projectile, 1f);
+        //GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
+        //Rigidbody projectileRigidbody = projectile.GetComponent<Rigidbody>();
+
+        //if (projectileRigidbody != null)
+        //{
+        //    Vector3 shootDirection = (targetToShoot.position - transform.position).normalized;
+        //    projectileRigidbody.velocity = shootDirection * projectileSpeed;
+        //}
     }
     public void Chase(Vector3 playerPosition, Transform player)
     {
@@ -41,11 +66,11 @@ public class EnemyModel : MonoBehaviour
     {
         transform.LookAt(currentWaypointTransform);
     }
-    
+
     public bool IsInRange(Transform target)
     {
         // lo mismo que hacer b-a
-        float distance = Vector3.Distance(transform.position,target.position);
+        float distance = Vector3.Distance(transform.position, target.position);
 
         if (distance > range)
         {
@@ -61,7 +86,7 @@ public class EnemyModel : MonoBehaviour
         Vector3 foward = transform.forward;
         Vector3 dirToTarget = (target.position - transform.position);
         float angleToTarget = Vector3.Angle(foward, dirToTarget);
-        if (angle/2 > angleToTarget)
+        if (angle / 2 > angleToTarget)
         {
             return true;
         }
@@ -79,7 +104,7 @@ public class EnemyModel : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position,dirToTarget,out hit,distanceToTarget,layerMask))
+        if (Physics.Raycast(transform.position, dirToTarget, out hit, distanceToTarget, layerMask))
         {
             return false;
         }
@@ -96,6 +121,18 @@ public class EnemyModel : MonoBehaviour
             return false;
         }
 
+    }
+    public bool IsInAttackRange()
+    {
+        if (Vector3.Distance(transform.position, targetToShoot.position) <= range / 2)
+        {
+            Debug.Log("esta a rango de tiro");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public bool GetIfDecoyIsViewed()
     {

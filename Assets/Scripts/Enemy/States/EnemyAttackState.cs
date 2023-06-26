@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDistractedState<T> : EnemyStateBase<T> 
+public class EnemyAttackState<T> : EnemyStateBase<T>
 {
     T input;
 
-    public EnemyDistractedState(T input)
+    public EnemyAttackState(T input)
     {
         this.input = input;
     }
@@ -17,6 +17,15 @@ public class EnemyDistractedState<T> : EnemyStateBase<T>
     public override void Execute()
     {
         base.Execute();
+        model.Chase(model.target.position, model.target);
+        model.shootTimer += Time.deltaTime;
+        if (model.shootTimer >= model.shootInterval)
+        {
+            model.Shoot();
+
+            model.shootTimer = 0f;
+
+        }
     }
     public override void Sleep()
     {

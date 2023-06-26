@@ -17,7 +17,6 @@ public class EnemyChaseState<T> : EnemyStateBase<T>
     {
         base.Execute();
         model.Chase(model.target.position, model.target);
-        Debug.Log("Persiguiendo");
     }
     public override void Sleep()
     {
