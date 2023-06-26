@@ -17,6 +17,8 @@ public class EnemyDistractedState<T> : EnemyStateBase<T>
     public override void Execute()
     {
         base.Execute();
+        Debug.Log("estado distraccion decoy");
+
     }
     public override void Sleep()
     {

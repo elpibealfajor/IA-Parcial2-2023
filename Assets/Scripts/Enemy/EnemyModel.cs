@@ -22,6 +22,7 @@ public class EnemyModel : MonoBehaviour
 
     //decoy
     public Transform decoy;
+    public bool isDistracted;
 
     //Shoot
     public Transform targetToShoot;
@@ -38,19 +39,24 @@ public class EnemyModel : MonoBehaviour
     {
         current = 0;
     }
+    public void Distracted()
+    {
+        
+    }
     public void Shoot()
     {
-        var projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position + transform.forward, Quaternion.identity) as GameObject;
-        projectile.GetComponent<Rigidbody>().velocity = projectileSpawnPoint.forward * projectileSpeed;
-        Destroy(projectile, 1f);
-        //GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
-        //Rigidbody projectileRigidbody = projectile.GetComponent<Rigidbody>();
-
-        //if (projectileRigidbody != null)
-        //{
-        //    Vector3 shootDirection = (targetToShoot.position - transform.position).normalized;
-        //    projectileRigidbody.velocity = shootDirection * projectileSpeed;
-        //}
+        if (targetToShoot != null)
+        {
+            var projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position + transform.forward, Quaternion.identity) as GameObject;
+            Vector3 dir = (targetToShoot.position - projectileSpawnPoint.position);
+            //projectile.GetComponent<Rigidbody>().velocity = projectileSpawnPoint.forward * projectileSpeed;
+            projectile.GetComponent<Rigidbody>().velocity = dir * projectileSpeed;
+            Destroy(projectile, 1f);
+        }
+        else
+        {
+            return;
+        }
     }
     public void Chase(Vector3 playerPosition, Transform player)
     {
@@ -126,7 +132,7 @@ public class EnemyModel : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, targetToShoot.position) <= range / 2)
         {
-            Debug.Log("esta a rango de tiro");
+            //Debug.Log("esta a rango de tiro");
             return true;
         }
         else
@@ -161,6 +167,5 @@ public class EnemyModel : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, Quaternion.Euler(0, angle / 2, 0) * transform.forward * range);
         Gizmos.DrawRay(transform.position, Quaternion.Euler(0,-angle / 2, 0) * transform.forward * range);
-
     }
 }

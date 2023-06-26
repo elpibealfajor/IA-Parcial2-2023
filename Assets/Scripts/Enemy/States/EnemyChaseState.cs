@@ -12,6 +12,7 @@ public class EnemyChaseState<T> : EnemyStateBase<T>
     public override void Awake()
     {
         base.Awake();
+        //model.targetToShoot = model.target;
     }
     public override void Execute()
     {

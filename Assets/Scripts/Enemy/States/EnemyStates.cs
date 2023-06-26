@@ -7,5 +7,6 @@ public enum EnemyStates
     Patroling,
     chase,
     Distracted,
-    Shoot
+    Shoot,
+    EnemyAtackDecoy
 }

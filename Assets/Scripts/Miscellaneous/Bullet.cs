@@ -9,7 +9,11 @@ public class Bullet : MonoBehaviour
         if (collision.transform.gameObject.name == "Player")
         {
             //SceneManager.LoadScene("Example_01");
-            Debug.Log("colisione con jugador");
+        }
+        else if (collision.transform.gameObject.tag == "Decoy")
+        {
+            Destroy(collision.gameObject);
+            Debug.Log("Colisione con el decoy");
         }
     }
 }
