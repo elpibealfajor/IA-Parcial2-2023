@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.transform.gameObject.name == "Player")
         {
-            //SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("SampleScene");
         }
         else if (collision.transform.gameObject.tag == "Decoy")
         {
