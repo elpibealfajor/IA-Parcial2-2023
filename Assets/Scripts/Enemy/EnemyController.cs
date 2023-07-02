@@ -18,8 +18,8 @@ public class EnemyController : MonoBehaviour
 
         roulette = new Roulette();
         dic = new Dictionary<EnemyStates, int>();
-        dic.Add(EnemyStates.EnemyAtackDecoy, 30);
-        dic.Add(EnemyStates.Distracted, 70);
+        dic.Add(EnemyStates.EnemyAtackDecoy, 50);
+        dic.Add(EnemyStates.Distracted, 50);
     }
     public void InitializedFSM()
     {
