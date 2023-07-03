@@ -47,6 +47,14 @@ public class EnemyModel : MonoBehaviour
     public Rigidbody rb;
     Isteering steering;
     public float RemoteBallDetectionRange = 10f;
+
+    //obstacle avoidance
+    Isteering obsAvoidance;
+    public LayerMask mask;
+    public int maxObs;
+    public float angleToAvoid;
+    public float radius;
+    public float multiplier;
     private void Awake()
     {
         enemyEntity = GetComponent<EntityModel>();
@@ -57,14 +65,12 @@ public class EnemyModel : MonoBehaviour
         {
             dic.Add(wpointTransform, 25);
         }
+        //obstacle avoidance
+        obsAvoidance = new ObstacleAvoidance(transform, mask, maxObs, angleToAvoid, radius);
     }
     void Start()
     {
         currentWaypointTransform = roulette.Run<Transform>(dic);
-    }
-    public void Distracted()
-    {
-        
     }
     public void Shoot()
     {
@@ -72,7 +78,6 @@ public class EnemyModel : MonoBehaviour
         {
             var projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position + transform.forward, Quaternion.identity) as GameObject;
             Vector3 dir = (targetToShoot.position - projectileSpawnPoint.position);
-            //projectile.GetComponent<Rigidbody>().velocity = projectileSpawnPoint.forward * projectileSpeed;
             projectile.GetComponent<Rigidbody>().velocity = dir * projectileSpeed;
             Destroy(projectile, 1f);
         }
@@ -81,16 +86,41 @@ public class EnemyModel : MonoBehaviour
             return;
         }
     }
-    public void Chase(Vector3 playerPosition, Transform player)
+    public void Move(Transform target, float speed)
     {
-        transform.position = Vector3.MoveTowards(transform.position, playerPosition
-            , chaseSpeed * Time.deltaTime);
-        transform.LookAt(player);
+        transform.position = Vector3.MoveTowards(transform.position, target.position
+             , speed * Time.deltaTime);
+        transform.LookAt(target);
     }
-    public void Patrol(Vector3 currentWaypointPosition)
-    {
-        transform.position = Vector3.MoveTowards(transform.position, currentWaypointPosition, speed * Time.deltaTime);
-    }
+    //public void Move(Transform target, float speed)
+    //{
+    //    Vector3 dirAvoidance = obsAvoidance.GetDir();
+    //    Vector3 dir = ((target.position - transform.position).normalized + dirAvoidance * multiplier).normalized;
+    //    enemyEntity.Move(dir);
+
+    //    transform.LookAt(target);
+    //    Debug.Log("me muevo");
+    //}
+    #region
+    //public void Chase(Vector3 playerPosition, Transform player)
+    //{
+    //    transform.position = Vector3.MoveTowards(transform.position, playerPosition
+    //        , chaseSpeed * Time.deltaTime);
+    //    transform.LookAt(player);
+    //}
+    //public void Patrol(Vector3 currentWaypointPosition)
+    //{
+    //    transform.position = Vector3.MoveTowards(transform.position, currentWaypointPosition, speed * Time.deltaTime);
+    //}
+    //public void RandomPatrol(Transform waypointTransform)
+    //{
+    //    transform.position = Vector3.MoveTowards(transform.position, waypointTransform.position, speed * Time.deltaTime);
+    //}
+    //public void LookDirPatrol(Transform currentWaypointTransform)
+    //{
+    //    transform.LookAt(currentWaypointTransform);
+    //}
+    #endregion
     public bool PatrollCompleted()
     {
         if (patrollsCompleted == patrollsToComplete)
@@ -106,15 +136,6 @@ public class EnemyModel : MonoBehaviour
     {
         yield return new WaitForSeconds(amountOfIdleTime);
         patrollsCompleted = 0;
-    }
-
-    public void RandomPatrol(Transform waypointTransform)
-    {
-        transform.position = Vector3.MoveTowards(transform.position, waypointTransform.position, speed * Time.deltaTime);
-    }
-    public void LookDirPatrol(Transform currentWaypointTransform)
-    {
-        transform.LookAt(currentWaypointTransform);
     }
 
     public bool IsInRange(Transform target)
@@ -194,19 +215,6 @@ public class EnemyModel : MonoBehaviour
             return false;
         }
     }
-    //public bool GetIfRemoteBallIsInAngle()
-    //{
-    //    if (remoteBall!=null && IsInAngle(remoteBall))
-    //    {
-    //        Debug.Log("verdadero");
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("falso");
-    //        return false;
-    //    }
-    //}
     public bool GetIfRemoteBallIsInAngle()
     {
         if (remoteBall != null)
@@ -233,10 +241,6 @@ public class EnemyModel : MonoBehaviour
     public void SetEyesVisuals()
     {
         //efectos visuales al estar en vision
-    }
-    void Update()
-    {
-        
     }
     private void OnDrawGizmosSelected()
     {

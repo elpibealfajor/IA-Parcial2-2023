@@ -18,11 +18,8 @@ public class EnemyAttackState<T> : EnemyStateBase<T>
     {
         base.Execute();
         model.shootTimer += Time.deltaTime;
-        //if (model.targetToShoot = model.target)//tambien podemos usar roulete para elegir el siguiente waypoint
-        //{
-        //    model.Chase(model.target.position, model.target);
-        //}
-        model.Chase(model.target.position, model.target);
+        //model.Chase(model.target.position, model.target);
+        model.Move(model.target, model.chaseSpeed);
 
         if (model.shootTimer >= model.shootInterval)
         {

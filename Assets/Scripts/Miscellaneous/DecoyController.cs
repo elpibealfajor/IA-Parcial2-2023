@@ -21,6 +21,10 @@ public class DecoyController : MonoBehaviour
                 var enemyModel = col.GetComponent<EnemyModel>();
                 enemyModel.decoy = this.transform;               
             }
+            else
+            {
+                Destroy(this);
+            }
         }
     }
     

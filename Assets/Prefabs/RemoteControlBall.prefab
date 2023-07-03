@@ -135,7 +135,7 @@ MonoBehaviour:
   maxObs: 5
   angle: 180
   radius: 3
-  multiplier: 0.9
+  multiplier: 1
   lifeTime: 3
   range: 100
 --- !u!114 &-7208295693196206014

@@ -5,8 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class WinCollision : MonoBehaviour
 {
+    public bool isLastLevel = false;
     private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene("SampleScene");
+        if (isLastLevel == false)
+        {
+            //SceneManager.LoadScene("Scene 2");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        }
+        else
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }

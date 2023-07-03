@@ -13,7 +13,6 @@ public class EnemyAttackDecoyState<T> : EnemyStateBase<T>
     public override void Awake()
     {
         base.Awake();
-        //model.targetToShoot = model.decoy;
     }
     public override void Execute()
     {
@@ -30,6 +29,5 @@ public class EnemyAttackDecoyState<T> : EnemyStateBase<T>
     public override void Sleep()
     {
         base.Sleep();
-        //model.targetToShoot = model.target;
     }
 }

@@ -53,8 +53,8 @@ public class RemoteControlBall : MonoBehaviour
     {
         Vector3 dirAvoidance = obsAvoidance.GetDir();
         Vector3 dir = (steering.GetDir() + dirAvoidance * multiplier).normalized;
-        //Vector3 dir = steering.GetDir();
         remoteBall.Move(dir);
+        //Vector3 dir = steering.GetDir();
         //remoteBall.LookDir(dir);
     }
     private void OnCollisionEnter(Collision collision)

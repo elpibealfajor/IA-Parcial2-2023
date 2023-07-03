@@ -13,7 +13,7 @@ public class EnemyIdleState<T> : EnemyStateBase<T>
     public override void Awake()
     {
         base.Awake();
-        model.StartCoroutine("resetPatrollsCompleted");
+        model.StartCoroutine("resetPatrollsCompleted"); // no puedo hacerlo aca por no tener monobehaviour      
     }
     public override void Execute()
     {
@@ -24,5 +24,4 @@ public class EnemyIdleState<T> : EnemyStateBase<T>
     {
         base.Sleep();
     }
-
 }

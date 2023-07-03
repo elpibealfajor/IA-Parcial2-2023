@@ -15,13 +15,6 @@ public class Seek : Isteering
     }
     public virtual Vector3 GetDir()
     {
-        if (target != null)
-        {
-            return (target.position - origin.position).normalized; //b-a
-        }
-        else
-        {
-            return Vector3.zero;
-        }
+        return (target.position - origin.position).normalized;
     }
 }

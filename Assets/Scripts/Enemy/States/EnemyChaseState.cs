@@ -12,12 +12,18 @@ public class EnemyChaseState<T> : EnemyStateBase<T>
     public override void Awake()
     {
         base.Awake();
-        //model.targetToShoot = model.target;
     }
     public override void Execute()
     {
         base.Execute();
-        model.Chase(model.target.position, model.target);
+
+        // asi se haria si no quisiera ponerle obstacle avoidance,
+        // el profe dijo que sino va en enemymodel pero en una sola funcion
+        //model.transform.position = Vector3.MoveTowards(model.transform.position, model.target.position
+        //     , model.chaseSpeed * Time.deltaTime);
+        //model.transform.LookAt(model.target);
+
+        model.Move(model.target, model.chaseSpeed);
     }
     public override void Sleep()
     {
