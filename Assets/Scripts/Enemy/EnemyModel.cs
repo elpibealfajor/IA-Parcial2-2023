@@ -13,18 +13,19 @@ public class EnemyModel : MonoBehaviour
     public float speed;
     public float chaseSpeed;
 
-    //patrolling
-    public Transform[] wPoints;
-    public int current = 0;
-    public int patrollsCompleted =0;
-    public int patrollsToComplete = 8;
+    ////patrolling
+    //public Transform[] wPoints;
+    //public int current = 0;
+
+    public int patrollsCompleted = 0;
+    //public int patrollsToComplete = 8;
     public float amountOfIdleTime = 4f;
 
-    //RandomPatrolling
-    public bool isRandomPatrollingOn = false;
-    public Transform currentWaypointTransform;
-    public Dictionary<Transform, int> dic;
-    public Roulette roulette;
+    ////RandomPatrolling
+    //public bool isRandomPatrollingOn = false;
+    //public Transform currentWaypointTransform;
+    //public Dictionary<Transform, int> dic;
+    //public Roulette roulette;
 
     //Vision of the player
     public Transform target;
@@ -33,7 +34,7 @@ public class EnemyModel : MonoBehaviour
     public Transform decoy;
     public bool isDistracted;
 
-    //Shoot
+    ////Shoot
     public Transform targetToShoot;
     public Transform projectileSpawnPoint;
     public GameObject projectilePrefab;
@@ -59,18 +60,18 @@ public class EnemyModel : MonoBehaviour
     {
         enemyEntity = GetComponent<EntityModel>();
         rb = GetComponent<Rigidbody>();
-        roulette = new Roulette();
-        dic = new Dictionary<Transform, int>();
-        foreach (Transform wpointTransform in wPoints)
-        {
-            dic.Add(wpointTransform, 25);
-        }
+        //roulette = new Roulette();
+        //dic = new Dictionary<Transform, int>();
+        //foreach (Transform wpointTransform in wPoints)
+        //{
+        //    dic.Add(wpointTransform, 25);
+        //}
         //obstacle avoidance
         obsAvoidance = new ObstacleAvoidance(transform, mask, maxObs, angleToAvoid, radius);
     }
     void Start()
     {
-        currentWaypointTransform = roulette.Run<Transform>(dic);
+        //currentWaypointTransform = roulette.Run<Transform>(dic);
     }
     public void Shoot()
     {
@@ -121,7 +122,7 @@ public class EnemyModel : MonoBehaviour
     //    transform.LookAt(currentWaypointTransform);
     //}
     #endregion
-    public bool PatrollCompleted()
+    public bool PatrollCompleted(int patrollsToComplete)
     {
         if (patrollsCompleted == patrollsToComplete)
         {

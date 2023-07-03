@@ -1597,6 +1597,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4673542931342700457, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: enemyEntity
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4673542931342700457, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
       propertyPath: mask.m_Bits
       value: 1024
       objectReference: {fileID: 0}
@@ -1717,12 +1721,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1305125016}
     - target: {fileID: 7727937640076809512, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: current
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727937640076809512, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
       propertyPath: rotationSpeed
       value: 90000
       objectReference: {fileID: 0}
     - target: {fileID: 7727937640076809512, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: targetToShoot
+      value: 
+      objectReference: {fileID: 1305125016}
+    - target: {fileID: 7727937640076809512, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
       propertyPath: wPoints.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727937640076809512, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: isRandomPatrollingOn
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7727937640076809512, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
       propertyPath: wPoints.Array.data[0]

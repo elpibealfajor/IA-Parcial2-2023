@@ -2049,6 +2049,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7727937640076809512, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
+      propertyPath: isRandomPatrollingOn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727937640076809512, guid: 8935a3dc67f5e454893b2fcf254aaa24, type: 3}
       propertyPath: wPoints.Array.data[0]
       value: 
       objectReference: {fileID: 1122218337}

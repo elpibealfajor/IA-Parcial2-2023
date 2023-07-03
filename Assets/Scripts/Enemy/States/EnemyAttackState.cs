@@ -17,6 +17,18 @@ public class EnemyAttackState<T> : EnemyStateBase<T>
     public override void Execute()
     {
         base.Execute();
+        //enemyController.shootTimer += Time.deltaTime;
+        ////model.Chase(model.target.position, model.target);
+        //model.Move(model.target, model.chaseSpeed);
+        //Debug.Log("esta etrando");
+        //if (enemyController.shootTimer >= enemyController.shootInterval)
+        //{
+        //    model.Shoot(enemyController.targetToShoot, enemyController.projectileSpawnPoint, enemyController.projectilePrefab);
+        //    enemyController.shootTimer = 0f;
+        //    Debug.Log("esta etrando2");
+
+        //}
+        #region
         model.shootTimer += Time.deltaTime;
         //model.Chase(model.target.position, model.target);
         model.Move(model.target, model.chaseSpeed);
@@ -26,6 +38,7 @@ public class EnemyAttackState<T> : EnemyStateBase<T>
             model.Shoot();
             model.shootTimer = 0f;
         }
+        #endregion
     }
     public override void Sleep()
     {

@@ -17,6 +17,15 @@ public class EnemyAttackDecoyState<T> : EnemyStateBase<T>
     public override void Execute()
     {
         base.Execute();
+        //enemyController.shootTimer += Time.deltaTime;
+        //if (enemyController.shootTimer >= enemyController.shootInterval)
+        //{
+        //    enemyController.targetToShoot = model.decoy;
+        //    model.Shoot(enemyController.targetToShoot,enemyController.projectileSpawnPoint,enemyController.projectilePrefab);
+        //    enemyController.shootTimer = 0f;
+        //}
+        //enemyController.targetToShoot = model.target;
+        #region
         model.shootTimer += Time.deltaTime;
         if (model.shootTimer >= model.shootInterval)
         {
@@ -25,6 +34,7 @@ public class EnemyAttackDecoyState<T> : EnemyStateBase<T>
             model.shootTimer = 0f;
         }
         model.targetToShoot = model.target;
+        #endregion
     }
     public override void Sleep()
     {

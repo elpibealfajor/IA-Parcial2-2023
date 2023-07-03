@@ -4,15 +4,40 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    EnemyController thisController;
+    #region
+    //patrolling
+    public Transform[] wPoints;
+    public int current = 0;
+    //public int patrollsCompleted = 0;
+    public int patrollsToComplete = 8;
+    //public float amountOfIdleTime = 4f;
+    //RandomPatrolling
+    public bool isRandomPatrollingOn = false;
+    public Transform currentWaypointTransform;
+    public Dictionary<Transform, int> dicOfWaypoints;
+    #endregion
+    //Shoot
+    //public Transform targetToShoot;
+    //public Transform projectileSpawnPoint;
+    //public GameObject projectilePrefab;
+    //public float projectileSpeed = 10f;
+    //public float shootInterval = 1f;
+    //public float shootTimer = 0f;
+
+
+
     FSM<EnemyStates> fsm;
     ITreeNode root;
     EnemyModel model;
+    public Roulette roulette;
 
     Dictionary<EnemyStates, int> dic;
-    Roulette roulette;
+    //Roulette roulette;
     private void Awake()
     {
         model = GetComponent<EnemyModel>();
+        thisController = GetComponent<EnemyController>();
         InitializedFSM();
         InitializedTree();
 
@@ -20,7 +45,23 @@ public class EnemyController : MonoBehaviour
         dic = new Dictionary<EnemyStates, int>();
         dic.Add(EnemyStates.EnemyAtackDecoy, 50);
         dic.Add(EnemyStates.Distracted, 50);
+
+        #region
+        //patrolling
+        dicOfWaypoints = new Dictionary<Transform, int>();
+        foreach (Transform wpointTransform in wPoints)
+        {
+            dicOfWaypoints.Add(wpointTransform, 25);
+        }
+        #endregion
     }
+    #region
+    //patrolling
+    void Start()
+    {
+        currentWaypointTransform = roulette.Run<Transform>(dicOfWaypoints);
+    }
+    #endregion
     public void InitializedFSM()
     {
         var list = new List<EnemyStateBase<EnemyStates>>();
@@ -76,7 +117,8 @@ public class EnemyController : MonoBehaviour
 
         for (int i = 0; i < list.Count; i++)
         {
-            list[i].InitializedState(model, fsm);
+            //list[i].InitializedState(model, fsm);
+            list[i].InitializedState(model, fsm, thisController);
         }
 
         fsm.SetInit(patrol);
@@ -128,7 +170,7 @@ public class EnemyController : MonoBehaviour
     }
     bool IsInIdle()
     {
-        return model.PatrollCompleted();
+        return model.PatrollCompleted(patrollsToComplete);
     }
 
     void ActionPatrol()
