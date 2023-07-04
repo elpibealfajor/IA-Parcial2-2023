@@ -38,9 +38,9 @@ public class EnemyModel : MonoBehaviour
     public Transform targetToShoot;
     public Transform projectileSpawnPoint;
     public GameObject projectilePrefab;
-    public float projectileSpeed = 10f;
-    public float shootInterval = 1f;
-    public float shootTimer = 0f;
+    //public float projectileSpeed = 10f;
+    //public float shootInterval = 1f;
+    //public float shootTimer = 0f;
 
     //flee
     public Transform remoteBall;
@@ -73,7 +73,7 @@ public class EnemyModel : MonoBehaviour
     {
         //currentWaypointTransform = roulette.Run<Transform>(dic);
     }
-    public void Shoot()
+    public void Shoot(float projectileSpeed)
     {
         if (targetToShoot != null)
         {

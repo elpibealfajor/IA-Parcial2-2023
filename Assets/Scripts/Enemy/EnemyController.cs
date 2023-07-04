@@ -21,9 +21,9 @@ public class EnemyController : MonoBehaviour
     //public Transform targetToShoot;
     //public Transform projectileSpawnPoint;
     //public GameObject projectilePrefab;
-    //public float projectileSpeed = 10f;
-    //public float shootInterval = 1f;
-    //public float shootTimer = 0f;
+    public float projectileSpeed = 10f;
+    public float shootInterval = 1f;
+    public float shootTimer = 0f;
 
 
 
