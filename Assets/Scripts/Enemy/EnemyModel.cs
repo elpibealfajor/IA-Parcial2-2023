@@ -133,11 +133,16 @@ public class EnemyModel : MonoBehaviour
             return false;
         }
     }
-    IEnumerator resetPatrollsCompleted()
+    public IEnumerator resetPatrollsCompleted()
     {
         yield return new WaitForSeconds(amountOfIdleTime);
         patrollsCompleted = 0;
     }
+    //public IEnumerator resetPatrollsCompleted(int i, bool s)
+    //{
+    //    yield return new WaitForSeconds(amountOfIdleTime);
+    //    patrollsCompleted = 0;
+    //}
 
     public bool IsInRange(Transform target)
     {
