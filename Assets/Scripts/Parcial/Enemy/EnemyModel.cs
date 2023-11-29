@@ -13,18 +13,19 @@ public class EnemyModel : MonoBehaviour
     public float speed;
     public float chaseSpeed;
 
-    //patrolling
-    public Transform[] wPoints;
-    public int current = 0;
-    public int patrollsCompleted =0;
-    public int patrollsToComplete = 8;
+    ////patrolling
+    //public Transform[] wPoints;
+    //public int current = 0;
+
+    public int patrollsCompleted = 0;
+    //public int patrollsToComplete = 8;
     public float amountOfIdleTime = 4f;
 
-    //RandomPatrolling
-    public bool isRandomPatrollingOn = false;
-    public Transform currentWaypointTransform;
-    public Dictionary<Transform, int> dic;
-    public Roulette roulette;
+    ////RandomPatrolling
+    //public bool isRandomPatrollingOn = false;
+    //public Transform currentWaypointTransform;
+    //public Dictionary<Transform, int> dic;
+    //public Roulette roulette;
 
     //Vision of the player
     public Transform target;
@@ -33,13 +34,13 @@ public class EnemyModel : MonoBehaviour
     public Transform decoy;
     public bool isDistracted;
 
-    //Shoot
+    ////Shoot
     public Transform targetToShoot;
     public Transform projectileSpawnPoint;
     public GameObject projectilePrefab;
-    public float projectileSpeed = 10f;
-    public float shootInterval = 1f;
-    public float shootTimer = 0f;
+    //public float projectileSpeed = 10f;
+    //public float shootInterval = 1f;
+    //public float shootTimer = 0f;
 
     //flee
     public Transform remoteBall;
@@ -59,20 +60,20 @@ public class EnemyModel : MonoBehaviour
     {
         enemyEntity = GetComponent<EntityModel>();
         rb = GetComponent<Rigidbody>();
-        roulette = new Roulette();
-        dic = new Dictionary<Transform, int>();
-        foreach (Transform wpointTransform in wPoints)
-        {
-            dic.Add(wpointTransform, 25);
-        }
+        //roulette = new Roulette();
+        //dic = new Dictionary<Transform, int>();
+        //foreach (Transform wpointTransform in wPoints)
+        //{
+        //    dic.Add(wpointTransform, 25);
+        //}
         //obstacle avoidance
         obsAvoidance = new ObstacleAvoidance(transform, mask, maxObs, angleToAvoid, radius);
     }
     void Start()
     {
-        currentWaypointTransform = roulette.Run<Transform>(dic);
+        //currentWaypointTransform = roulette.Run<Transform>(dic);
     }
-    public void Shoot()
+    public void Shoot(float projectileSpeed)
     {
         if (targetToShoot != null)
         {
@@ -121,7 +122,7 @@ public class EnemyModel : MonoBehaviour
     //    transform.LookAt(currentWaypointTransform);
     //}
     #endregion
-    public bool PatrollCompleted()
+    public bool PatrollCompleted(int patrollsToComplete)
     {
         if (patrollsCompleted == patrollsToComplete)
         {
@@ -132,11 +133,16 @@ public class EnemyModel : MonoBehaviour
             return false;
         }
     }
-    IEnumerator resetPatrollsCompleted()
+    public IEnumerator resetPatrollsCompleted()
     {
         yield return new WaitForSeconds(amountOfIdleTime);
         patrollsCompleted = 0;
     }
+    //public IEnumerator resetPatrollsCompleted(int i, bool s)
+    //{
+    //    yield return new WaitForSeconds(amountOfIdleTime);
+    //    patrollsCompleted = 0;
+    //}
 
     public bool IsInRange(Transform target)
     {

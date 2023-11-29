@@ -200,6 +200,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e477be9683e501c48bfd9cc03e7e8c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wPoints: []
+  current: 0
+  patrollsToComplete: 8
+  isRandomPatrollingOn: 0
+  currentWaypointTransform: {fileID: 0}
 --- !u!114 &4673542931342700457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,15 +224,13 @@ MonoBehaviour:
     m_Bits: 1024
   speed: 10
   chaseSpeed: 4
-  wPoints: []
-  current: 0
-  isRandomPatrollingOn: 0
-  currentWaypointTransform: {fileID: 0}
-  target: {fileID: 0}
+  patrollsCompleted: 0
+  amountOfIdleTime: 4
+  target: {fileID: 2311828436210501352, guid: f9922c2a505e3e64dbbccb4ec2c1ec65, type: 3}
   decoy: {fileID: 0}
   isDistracted: 0
   targetToShoot: {fileID: 2311828436210501352, guid: f9922c2a505e3e64dbbccb4ec2c1ec65, type: 3}
-  projectileSpawnPoint: {fileID: 0}
+  projectileSpawnPoint: {fileID: 6272876359483983737}
   projectilePrefab: {fileID: 748098902813681879, guid: 541ebceb4b4dca843abf66f13fab4b08, type: 3}
   projectileSpeed: 5
   shootInterval: 1
@@ -236,6 +239,13 @@ MonoBehaviour:
   enemyEntity: {fileID: 0}
   rb: {fileID: 0}
   RemoteBallDetectionRange: 14
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
+  maxObs: 0
+  angleToAvoid: 0
+  radius: 0
+  multiplier: 0
 --- !u!114 &-934986037769121324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  rotSpeed: 5
 --- !u!54 &-5357211281496775460
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -17,14 +17,24 @@ public class EnemyAttackDecoyState<T> : EnemyStateBase<T>
     public override void Execute()
     {
         base.Execute();
-        model.shootTimer += Time.deltaTime;
-        if (model.shootTimer >= model.shootInterval)
+        enemyController.shootTimer += Time.deltaTime;
+        if (enemyController.shootTimer >= enemyController.shootInterval)
         {
             model.targetToShoot = model.decoy;
-            model.Shoot();
-            model.shootTimer = 0f;
+            model.Shoot(enemyController.projectileSpeed);
+            enemyController.shootTimer = 0f;
         }
         model.targetToShoot = model.target;
+        #region
+        //model.shootTimer += Time.deltaTime;
+        //if (model.shootTimer >= model.shootInterval)
+        //{
+        //    model.targetToShoot = model.decoy;
+        //    model.Shoot();
+        //    model.shootTimer = 0f;
+        //}
+        //model.targetToShoot = model.target;
+        #endregion
     }
     public override void Sleep()
     {
