@@ -73,7 +73,6 @@ public class EnemyController : MonoBehaviour
         idle.AddTransition(EnemyStates.EnemyAtackDecoy, atackDecoy);
         idle.AddTransition(EnemyStates.Distracted, distracted);
 
-
         for (int i = 0; i < list.Count; i++)
         {
             list[i].InitializedState(model, fsm);
